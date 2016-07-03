@@ -4,40 +4,28 @@
 	<meta charset="UTF-8">
 	<title>Страницы</title>
 	<style>
-		body {
-			margin: 50px 30px;
-			font-family: Roboto, Helvetica, sans-serif;
-			font-size: 18px;
-			line-height: 30px;
-		}
-		.link {
-			text-decoration: none;
-			color: #1974d2;
-		}
-		.link:hover {
-			color: #E00;
-		}
-		.link:visited {
-			color: #8000ff;
-		}
+		body {margin: 50px 30px; font: 18px/30px sans-serif;}
+		
+		.link {text-decoration: none;color: #1974d2;}
+		.link:hover {color: #E00;}
+		.link:visited {color: #8000ff;}
 
-		.list {
-			margin-bottom: 30px;
-		}
-
-		.header_size_l {
-			font-size: 22px;
-		}
-		.header_size_xl {
-			font-size: 30px;
-			letter-spacing: 2px;
-			text-transform: uppercase;
-		}
+		.header {margin-top: 30px;}
+		.header_size_l {font-size: 22px;}
+		.header_size_xl {font-size: 30px;letter-spacing: 2px;text-transform: uppercase;}
 	</style>
 </head>
 <body>
 	<h1 class="header header_size_xl">ШРИ</h1>
-	<h2 class="header header_size_l">Вступительные</h2>
+	<h2 class="header header_size_l">1. Первое ДЗ</h2>
+	<ul class="list">
+		<li class="list__item">
+			Верстка статьи про Фареры:
+			<a class="link" href="/shri/1-css/">демо</a>,
+			<a class="link" href="http://github.com/gcor/shri/tree/master/1-css/">гитхаб</a>
+		</li>
+	</ul>
+	<h2 class="header header_size_l">0. Вступительные</h2>
 	<ul class="list">
 		<li class="list__item">
 			Верстка телепрограммы:
@@ -54,13 +42,6 @@
 			<a class="link" href="http://github.com/gcor/shri/tree/master/0-sw/">гитхаб</a>
 		</li>
 	</ul>
-	<h2 class="header header_size_l">Первое ДЗ</h2>
-	<ul class="list">
-		<li class="list__item">
-			Верстка статьи про Фареры:
-			<a class="link" href="/shri/1-css/">демо</a>,
-			<a class="link" href="http://github.io/shri/tree/master/1-css/">гитхаб</a>
-		</li>
-	</ul>
+	
 </body>
 </html>
