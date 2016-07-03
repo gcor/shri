@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Иван Иванов",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "id": 1
+    },
+    {
+        "name": "1",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "1",
+        "id": 2
+    },
+    {
+        "name": "12",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "12",
+        "id": 3
+    },
+    {
+        "name": "123",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "33",
+        "id": 4
+    },
+    {
+        "name": "1",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "id": 5
+    },
+    {
+        "name": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "id": 6
+    },
+    {
+        "name": "12",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "id": 7
+    },
+    {
+        "name": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "picSrc": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "bio": "http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+        "id": 8
+    }
+]
