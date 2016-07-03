@@ -1,0 +1,75 @@
+@screen-wap: 340px;
+@screen-mobile: 500px;
+@screen-tablet: 800px;
+@media (max-width: @screen-tablet) {
+    .content {
+        .content__note,
+        .content__paragraph {
+            width: 100%;
+            margin: 0 auto 5vh;
+        }
+        .content__note {
+            position: relative;
+            top: initial;
+            left: initial;
+            bottom: initial;
+            &_align_bottom {
+                margin-bottom: 0;
+            }
+        }
+        .content__header {
+            margin: 0 auto;
+        }
+    }
+    .header {
+        &_size {
+            &_xl {
+                font-size: 12vw;
+                letter-spacing: 4vw;
+            }
+            &_l {
+                font-size: 6vw;
+                letter-spacing: 3vw;
+            }
+            &_s {
+                font-size: 4vw;
+                letter-spacing: 1.5vw;
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-mobile) {
+    .content {
+        padding-left: 0;
+        padding-right: 0;
+        .content__paragraph {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        .content__blockquote {
+            margin-left: 5%;
+            margin-right: 5%;
+            width: 90%;
+            padding-right: 20px;
+            box-sizing: border-box;
+            margin: 0 auto 5vh;
+        }
+        .content__header {
+            line-height: 1.5;
+            margin-bottom: 5vh;
+        }
+    }
+}
+
+@media (min-width: @screen-wap) and (max-width: @screen-mobile) {
+    .content__blockquote,
+    .content__paragraph {
+        font-size: 5vw;
+    }
+    .content-picture__caption,
+    .content__blockquote_size_s {
+        font-size: 3vw;
+    }
+}
