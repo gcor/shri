@@ -2,9 +2,11 @@ libs/
 node_modules/
 .DS_Store
 .idea/
+public/
 *.iml
 .project
 .svn
+.gitignore
 npm-debug.log
 
 # bem
