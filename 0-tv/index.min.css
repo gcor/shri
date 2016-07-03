@@ -1,0 +1,273 @@
+/* ../../common.blocks/logo/logo.styl:begin */
+.logo {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0;
+}
+/* ../../common.blocks/logo/logo.styl:end */
+/* ../../common.blocks/popular/popular.styl:begin */
+.popular {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.popular__item {
+  display: inline-block;
+}
+/* ../../common.blocks/popular/popular.styl:end */
+/* ../../common.blocks/block/block.styl:begin */
+.block {
+  margin: 20px;
+  position: relative;
+  width: 300px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  white-space: normal;
+}
+.block__img {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.2);
+}
+.block__title {
+  position: absolute;
+  top: 180px;
+  width: 90%;
+  left: 5%;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.2);
+  background-color: #fff;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 5px;
+}
+.block__title:after {
+  content: '';
+  background-color: #fff;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.2);
+  width: 90%;
+  left: 5%;
+  height: 100px;
+  z-index: -1;
+  bottom: -5px;
+  border-radius: 5px;
+  position: absolute;
+}
+.block__subtitle {
+  color: #808080;
+  font-size: 12px;
+  margin-top: 5px;
+  line-height: 18px;
+}
+/* ../../common.blocks/block/block.styl:end */
+/* ../../libs/bem-components/common.blocks/image/image.styl:begin */
+.image {
+  border: 0;
+}
+/* ../../libs/bem-components/common.blocks/image/image.styl:end */
+/* ../../libs/bem-core/common.blocks/clearfix/clearfix.css:begin */
+.clearfix:after
+{
+    display: table;
+    clear: both;
+
+    content: '';
+}
+/* ../../libs/bem-core/common.blocks/clearfix/clearfix.css:end */
+/* ../../common.blocks/nav/nav.styl:begin */
+.nav {
+  display: inline-block;
+  position: relative;
+  padding: 30px 10px;
+}
+.nav__title {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 10px;
+  width: 100%;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.nav_type_time {
+  float: left;
+}
+.nav_type_time .nav__item:hover {
+  color: #ffa500;
+  border-bottom: 1px solid #ffa500;
+}
+.nav_type_filter {
+  float: right;
+}
+.nav__item {
+  display: inline-block;
+  padding: 5px 5px;
+  width: 60px;
+  text-align: center;
+  margin: 0px 2px;
+  border-bottom: 1px solid #dadada;
+  -webkit-user-select: none;
+  -webkit-transition: prop time;
+  transition: prop time;
+}
+/* ../../common.blocks/nav/nav.styl:end */
+/* ../../common.blocks/programms/programms.styl:begin */
+.programms__day {
+  display: none;
+}
+/* ../../common.blocks/programms/programms.styl:end */
+/* ../../common.blocks/programm/programm.styl:begin */
+.programm {
+  padding: 20px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  width: 25%;
+}
+.programm__head {
+  margin-bottom: 10px;
+}
+.programm__logo {
+  width: 50px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.programm__title {
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+}
+.programm__item {
+  line-height: 18px;
+  padding-bottom: 5px;
+  position: relative;
+}
+.programm__item:hover .programm__info {
+  margin-top: 0;
+  visibility: visible;
+  opacity: 1;
+}
+.programm__info {
+  margin-top: 20px;
+  -webkit-transition: opacity 0.3s, margin 0.3s;
+  transition: opacity 0.3s, margin 0.3s;
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+}
+.programm__time {
+  width: 50px;
+  display: table-cell;
+  font-weight: bold;
+  vertical-align: top;
+}
+.programm__text {
+  display: table-cell;
+}
+[data-time="live"]:before {
+  content: 'Live';
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #e00;
+  margin-right: 5px;
+}
+#filter_sport:checked ~ .main [data-type="sport"],
+#filter_sport:checked ~ .main [for="filter_sport"] {
+  color: #008000;
+}
+#filter_film:checked ~ .main [data-type="film"],
+#filter_film:checked ~ .main [for="filter_film"] {
+  color: #a52a2a;
+}
+#filter_child:checked ~ .main [data-type="child"],
+#filter_child:checked ~ .main [for="filter_child"] {
+  color: #2196f3;
+}
+#filter_sport:checked ~ .main [for="filter_sport"] {
+  background: #dfd;
+}
+#filter_film:checked ~ .main [for="filter_film"] {
+  background: #ffe4db;
+}
+#filter_child:checked ~ .main [for="filter_child"] {
+  background: #dbf4ff;
+}
+[id="day_24"]:checked ~ .main [data-day="24"],
+[id="day_25"]:checked ~ .main [data-day="25"],
+[id="day_26"]:checked ~ .main [data-day="26"],
+[id="day_27"]:checked ~ .main [data-day="27"],
+[id="day_28"]:checked ~ .main [data-day="28"] {
+  display: block;
+}
+[id="day_24"]:checked ~ .main [for="day_24"],
+[id="day_25"]:checked ~ .main [for="day_25"],
+[id="day_26"]:checked ~ .main [for="day_26"],
+[id="day_27"]:checked ~ .main [for="day_27"],
+[id="day_28"]:checked ~ .main [for="day_28"] {
+  color: #ffa500;
+  border-bottom-color: #ffa500;
+}
+/* ../../common.blocks/programm/programm.styl:end */
+/* ../../common.blocks/info/info.styl:begin */
+.info {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  width: 80%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.info__img {
+  width: 100%;
+}
+.info__text {
+  font-size: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+/* ../../common.blocks/info/info.styl:end */
+/* ../../common.blocks/page/page.styl:begin */
+body {
+  margin: 0;
+  font: 14px/18px Arial, sans-serif;
+  background-color: #fff;
+}
+.page__input {
+  display: none;
+}
+.clearfix:after {
+  content: '';
+  clear: both;
+  display: table;
+}
+@media screen and (max-width: 1200px) {
+  .programm {
+    width: 33%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .programm {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .nav {
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+  }
+  .programm {
+    width: 100%;
+  }
+}
+/* ../../common.blocks/page/page.styl:end */
