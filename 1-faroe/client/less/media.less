@@ -1,76 +1,117 @@
 @screen-wap: 340px;
 @screen-mobile: 500px;
 @screen-tablet: 800px;
-@media (max-width: @screen-tablet) {
-    .content {
-        .content__note,
-        .content__paragraph {
-            width: 100%;
-            margin: 0 auto 5vh;
-        }
-        .content__note {
-            position: relative;
-            top: initial;
-            left: initial;
-            bottom: initial;
-            &_align_bottom {
-                margin-bottom: 0;
-            }
-        }
-        .content__header {
-            margin: 0 auto;
-        }
-    }
-    .header {
-        &_size {
-            &_xl {
-                font-size: 12vw;
-                letter-spacing: 4vw;
-            }
-            &_l {
-                font-size: 6vw;
-                letter-spacing: 3vw;
-            }
-            &_s {
-                font-size: 4vw;
-                letter-spacing: 1.5vw;
-                font-weight: normal;
-            }
-        }
+
+.img(@id, @path) {
+	[data-img-id="@{id}"] { background-image: url("../img/@{path}");}
+}
+
+.img(1, "header-img-1.jpg");
+.img(2, "header-img-2.jpg");
+.img(3, "header-img-3.jpg");
+.img(4, "header-img-4.jpg");
+.img(5, "header-img-5.jpg");
+.img(6, "header-img-6.jpg");
+.img(7, "header-img-7.jpg");
+.img(8, "header-img-8.jpg");
+.img(9, "header-img-9.jpg");
+.img(10, "header-img-10.jpg");
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    * {
+    	.img(1, "header-img-1@2x.jpg");
+		.img(2, "header-img-2@2x.jpg");
+		.img(3, "header-img-3@2x.jpg");
+		.img(4, "header-img-4@2x.jpg");
+		.img(5, "header-img-5@2x.jpg");
+		.img(6, "header-img-6@2x.jpg");
+		.img(7, "header-img-7@2x.jpg");
+		.img(8, "header-img-8@2x.jpg");
+		.img(9, "header-img-9@2x.jpg");
+		.img(10, "header-img-10@2x.jpg");
     }
 }
 
-@media (max-width: @screen-mobile) {
-    .content {
-        padding-left: 0;
-        padding-right: 0;
-        .content-picture__caption,
-        .content__header,
-        .content__paragraph {
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-        .content__blockquote {
-            width: 90%;
-            padding-right: 20px;
-            box-sizing: border-box;
-            margin: 0 auto 5vh;
-        }
-        .content__header {
-            line-height: 1.5;
-            margin-bottom: 5vh;
-            width: 90%;
-        }
-    }
+@media only screen and (max-width: @screen-tablet) {
+	.content {
+		.content__note,
+		.content__paragraph {
+			width: 100%;
+			margin: 0 auto 5vh;
+		}
+		.content__note {
+			position: relative;
+			top: initial;
+			left: initial;
+			bottom: initial;
+			&_align_bottom {
+				margin-bottom: 0;
+			}
+		}
+		.content__header {
+			margin: 0 auto;
+		}
+	}
 }
 
-@media (min-width: @screen-wap) and (max-width: @screen-mobile) {
-    .content__blockquote,
-    .content__paragraph {
-        font-size: 5vw;
-    }
-    .content-picture__caption,
-    .content__blockquote_size_s {
-        font-size: 4vw;
-    }
+@media only screen and (max-width: @screen-mobile) {
+	.content {
+		padding-left: 0;
+		padding-right: 0;
+		.picture__caption,
+		.content__header,
+		.content__paragraph {
+			padding-left: 5%;
+			padding-right: 5%;
+		}
+		.content__blockquote,
+		.content__note {
+			max-width: 100%;
+		}
+		.content__blockquote {
+			width: 90%;
+			padding-right: 20px;
+			box-sizing: border-box;
+			margin: 0 auto 5vh;
+		}
+		.content__header {
+			line-height: 1.5;
+			margin-bottom: 5vh;
+			width: 90%;
+		}
+	}
+	.header {
+		&_size {
+			&_xl {
+				font-size: 12vw;
+				letter-spacing: 4vw;
+			}
+			&_l {
+				font-size: 6vw;
+				letter-spacing: 3vw;
+			}
+			&_s {
+				font-size: 4vw;
+				letter-spacing: 1.5vw;
+				font-weight: normal;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: @screen-wap) and (max-width: @screen-mobile) {
+	.content__blockquote,
+	.content__paragraph {
+		font-size: 5vw;
+	}
+	.picture__caption,
+	.content__blockquote_size_s {
+		font-size: 4vw;
+	}
 }
