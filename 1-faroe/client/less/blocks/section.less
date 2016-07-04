@@ -1,15 +1,18 @@
 .section {
     min-height: 300px;
-    display: table;
     width: 100%;
-    vertical-align: middle;
     position: relative;
-    width: 100%;
-    &_type {
+    &:nth-child(2) {
+        .content__paragraph:first-of-type:first-letter {
+            font-size: 60px;
+            line-height: 0;
+            font-weight: bold;
+        }
+    }
+    &_type {        
         &_img {
             color: #FFF;
             text-align: center;
-            background-image: url(../img/article-img-6.jpeg);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -51,12 +54,5 @@
         left: 5%;
         right: 5%;
         opacity: .8;
-    }
-}
-.section:nth-child(2) {
-    .content__paragraph:first-of-type:first-letter {
-        font-size: 60px;
-        line-height: 0; 
-        font-weight: bold;
     }
 }
