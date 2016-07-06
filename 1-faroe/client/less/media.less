@@ -1,8 +1,60 @@
 @screen-wap: 340px;
 @screen-mobile: 540px;
 @screen-tablet: 840px;
+@screen-desktop: 1380px;
+
+@screen-height-mobile: 540px;
+@screen-height-desktop: 1380px;
+
+
+
+// WIDTH
+@media only screen and (min-width: @screen-desktop) {
+    .content {
+        width: 80%;
+        &, .content__note,
+        .content__paragraph {
+            max-width: none;
+        }
+    }
+    .picture__caption,
+    .content__blockquote {
+        font-size: 1.3vw;
+    }
+    .content__paragraph {
+        font-size: 1.5vw;
+    }
+    .content__blockquote_size_s,
+    .section__caption {
+        font-size: 1vw;
+    }
+    .header {
+        &_size {
+            &_xl {
+                font-size: 5vw;
+                letter-spacing: 2vw;
+            }
+            &_l {
+                font-size: 3vw;
+                letter-spacing: 1vw;
+            }
+            &_m {
+                font-size: 2vw;
+                letter-spacing: 1vw;
+            }
+            &_s {
+                font-size: 2vw;
+                letter-spacing: 1vw;
+            }
+        }
+    }
+}
+
 @media print,
 only screen and (max-width: @screen-tablet) {
+    .section_type_img {
+        background-attachment: scroll;
+    }
     .content {
         .content__note,
         .content__paragraph {
@@ -21,6 +73,10 @@ only screen and (max-width: @screen-tablet) {
         .content__header {
             margin: 0 auto;
         }
+    }
+    .picture__caption,
+    .content__blockquote_size_s {
+        font-size: 16px;
     }
 }
 
@@ -61,14 +117,9 @@ only screen and (max-width: @screen-tablet) {
                 font-size: 6vw;
                 letter-spacing: 3vw;
             }
-            &_l {
-                font-size: 8vw;
-                letter-spacing: 3vw;
-            }
             &_s {
                 font-size: 4vw;
                 letter-spacing: 1.5vw;
-                font-weight: normal;
             }
         }
     }
@@ -81,10 +132,29 @@ only screen and (max-width: @screen-tablet) {
     }
     .picture__caption,
     .content__blockquote_size_s {
-        font-size: 4vw;
+        font-size: 3.5vw;
     }
 }
 
+// HEIGHT
+@media
+only screen and (max-height: @screen-height-mobile),
+only screen and (min-height: @screen-height-desktop) {
+   .content {
+       padding-top: 60px;
+       .content__note_align_top {
+           top: 60px;
+       }
+        .content__header,
+        .content__note,
+        .content__paragraph {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+
+// PRINT
 @media print {
     .section {
         &_type_img {
