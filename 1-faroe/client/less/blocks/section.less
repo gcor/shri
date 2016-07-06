@@ -8,7 +8,7 @@
         &_img:first-child + &_txt .content__paragraph,
         &_txt:first-child .content__paragraph {
             &:first-of-type:first-letter {
-                font-size: 60px;
+                font-size: 5vw;
                 line-height: 0;
                 font-weight: bold;
             }
@@ -21,6 +21,7 @@
             background-position: center;
             background-attachment: fixed;
             position: relative;
+            will-change: transform, background;
             z-index: -2;
             height: 80vh;
             &:after {
@@ -37,6 +38,7 @@
         }
     }
     &_fullscreen {
+        min-height: 100%;
         height: 100vh;
     }
     &__header {
