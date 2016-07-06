@@ -138,20 +138,25 @@ only screen and (max-width: @screen-tablet) {
 }
 
 // HEIGHT
+@media only screen and (max-height: @screen-height-mobile) {
+    .content {
+        padding-top: 60px;
+        .content__note_align_top {
+            top: 60px;
+        }
+    }
+}
+
 @media
 only screen and (max-height: @screen-height-mobile),
 only screen and (min-height: @screen-height-desktop) {
    .content {
-       padding-top: 60px;
-       .content__note_align_top {
-           top: 60px;
-       }
         .content__header,
         .content__note,
         .content__paragraph {
-            margin-bottom: 30px;
+            margin-bottom: 2vh;
         }
-    }
+   }
 }
 
 
