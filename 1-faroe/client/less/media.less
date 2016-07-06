@@ -138,7 +138,8 @@ only screen and (max-width: @screen-tablet) {
 }
 
 // HEIGHT
-@media only screen and (max-height: @screen-height-mobile) {
+@media
+only screen and (min-width: @screen-tablet) and (max-height: @screen-height-mobile) {
     .content {
         padding-top: 60px;
         .content__note_align_top {
@@ -148,7 +149,7 @@ only screen and (max-width: @screen-tablet) {
 }
 
 @media
-only screen and (max-height: @screen-height-mobile),
+only screen and (min-width: @screen-tablet) and (max-height: @screen-height-mobile),
 only screen and (min-height: @screen-height-desktop) {
    .content {
         .content__header,
