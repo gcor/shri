@@ -1,5 +1,6 @@
 libs/
 node_modules/
+bower/**/*
 .DS_Store
 .idea/
 public/
