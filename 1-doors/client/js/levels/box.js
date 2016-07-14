@@ -56,7 +56,7 @@ export default class Box extends DoorBase {
             let vectorArray = Object.keys(currentVector);
             if (vectorArray.length === 2) {
                 // анимируем rotate и scale
-                requestAnimationFrame(() =>{
+                requestAnimationFrame(() => {
                     currentDistance = detectDistance(currentVector[vectorArray[0]], currentVector[vectorArray[1]]);
                     currentAngle = detectAngleDeg(currentVector[vectorArray[0]], currentVector[vectorArray[1]]) - startAngle || 0;
                     let diffDistance = currentDistance / startDistance;
@@ -77,7 +77,9 @@ export default class Box extends DoorBase {
                 circle.removeEventListener('pointerup');
             } else {
                 circle.setPointerCapture(e.pointerId)
-                resetTransition();
+                requestAnimationFrame(() => {
+                    circle.style.transform = '';
+                });
             }
         }
 
@@ -87,12 +89,6 @@ export default class Box extends DoorBase {
 
         function detectAngleDeg(p1, p2) {
             return Math.atan2(p1.y - p2.y, p1.x - p2.x) * 180 / Math.PI;
-        }
-
-        function resetPosition() {
-            requestAnimationFrame(function() {
-                circle.style.transform = '';
-            });
         }
     }
 
