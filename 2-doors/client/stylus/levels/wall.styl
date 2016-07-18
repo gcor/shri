@@ -1,0 +1,39 @@
+.wall
+	width 100%
+	height 100%
+	&__barrier
+		width 90%
+		height 220px
+		background-image url('../img/stoneCenter.png')
+		border-radius 5px
+		top 50%
+		left 5%
+		margin-top -110px
+		position absolute
+		transition: transform .5s;
+		will-change: transform
+		backface-visibility: hidden
+		z-index 5
+	&__key
+		background-image url('../img/keyYellow.png')
+		background-size cover
+		width 64px
+		height 64px
+		position absolute
+		top 50%
+		margin-top -25px
+		left 30%
+		z-index 2
+	&__lock
+		background-image url('../img/lockYellow.png')
+		background-size cover
+		width 100px
+		height 100px
+		position absolute
+		top 50%
+		margin-top -50px
+		right 10%
+		transition: transform .5s;
+		will-change: transform
+		backface-visibility: hidden
+		z-index 1
