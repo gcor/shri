@@ -1,0 +1,31 @@
+.page 
+	display flex
+	width: 100%;
+	height: 100%;
+	&.hidden 
+		display none
+	&__title 
+		font-size 26px
+		text-align center
+		font-weight normal
+		color #777
+		.icon 
+			padding-left 15px
+		path 
+			fill #777
+	&__container 
+		.page_type_player &:before{
+			content attr(data-loader);
+			display flex
+			width 100%
+			height 100%
+			position absolute
+			align-items center
+			justify-content center
+			font-size 32px
+			font-family 'Oranienbaum', georgia, serif;
+			z-index: 0;
+		}
+		overflow hidden
+		position relative
+		margin auto
