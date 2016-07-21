@@ -17,7 +17,7 @@ export default class Audio {
     }
     pause() {
         this.audio.pause();
-        
+
         // постоянный эффект шума
         // this.stopNoise(); 
     }
@@ -36,6 +36,8 @@ export default class Audio {
 
         this.audio = audio;
         this.$audio.appendChild(this.audio);
+        
+        audioFilter.lowpass(this.audio, 500)
     }
 
     // создание белого шума
