@@ -32,7 +32,7 @@ export default class Audio {
     // создание элемента музыки тапера
     createAudio(path) {
         let audio = document.createElement("audio");
-        audio.src = `./${path}`;
+        audio.src = path;
 
         this.audio = audio;
         this.$audio.appendChild(this.audio);

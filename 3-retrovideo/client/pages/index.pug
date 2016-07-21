@@ -11,9 +11,9 @@ block content
 							path(d='M273 1.508h-32.5v7.11H273z')
 			form.form
 				.form__container
-					input.form__input(type='text', data-type="video", placeholder='Ссылка на видео', value="media/sherlock.mp4", required)
-					input.form__input(type='text', data-type="subtitles", placeholder='Ссылка на субтитры', value="media/subs.vtt", required)
-					input.form__input(type='text', data-type="audio", placeholder='Ссылка на саундтрек', value="media/audio.ogg", required)
+					input.form__input(type='text', data-type="video", placeholder='Ссылка на видео', value="./media/sherlock.mp4", required)
+					input.form__input(type='text', data-type="subtitles", placeholder='Ссылка на субтитры', value="./media/subs.vtt", required)
+					input.form__input(type='text', data-type="audio", placeholder='Ссылка на саундтрек', value="./media/audio.ogg", required)
 					input.form__submit(type='submit', value='Заглушить')
 	.page.page_type_player.hidden(data-page="player")
 		.player.page__container(data-loader="Загрузка..")
@@ -21,9 +21,9 @@ block content
 			.player__video-container
 			.player__audio-container
 			video.player__noisevideo(loop)
-				source(src='media/noise.mp4', type='video/mp4')
-				source(src='media/noise.ogv', type='video/ogg')
-				source(src='media/noise.webm', type='video/webm')
+				source(src='./media/noise.mp4', type='video/mp4')
+				source(src='./media/noise.ogv', type='video/ogg')
+				source(src='./media/noise.webm', type='video/webm')
 			.player__controls.controls
 				.controls__item.controls__state.controls__state_play
 				.controls__item.controls__progress
