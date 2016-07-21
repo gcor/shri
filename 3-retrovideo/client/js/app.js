@@ -16,7 +16,7 @@ class App {
     onSubmit(e) {
         e.preventDefault();
 
-        let relativePath = '../';
+        let relativePath = './';
         for (let input of this.$inputs) {
             let type = input.getAttribute('data-type');
             this.src[type] = relativePath + input.value;

@@ -10,7 +10,7 @@ export default class Video {
         track.kind = "captions";
         track.label = "Russian";
         track.srclang = "ru";
-        track.src = `./${path}`;
+        track.src = path;
         track.setAttribute('default', true);
 
         this.track = track;
