@@ -76,7 +76,7 @@ export default class Video {
 
         let type = path.slice(-3);
         let source = document.createElement("source");
-        source.setAttribute('src', path);
+        source.setAttribute('src', `./${path}`);
         source.setAttribute('type', `video/${type}`);
         video.appendChild(source);
 
