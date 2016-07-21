@@ -19,9 +19,9 @@
             </svg></span></h1>
         <form class="form">
           <div class="form__container">
-            <input class="form__input" type="text" data-type="video" placeholder="Ссылка на видео" value="media/sherlock.mp4" required>
-            <input class="form__input" type="text" data-type="subtitles" placeholder="Ссылка на субтитры" value="media/subs.vtt" required>
-            <input class="form__input" type="text" data-type="audio" placeholder="Ссылка на саундтрек" value="media/audio.ogg" required>
+            <input class="form__input" type="text" data-type="video" placeholder="Ссылка на видео" value="./media/sherlock.mp4" required>
+            <input class="form__input" type="text" data-type="subtitles" placeholder="Ссылка на субтитры" value="./media/subs.vtt" required>
+            <input class="form__input" type="text" data-type="audio" placeholder="Ссылка на саундтрек" value="./media/audio.ogg" required>
             <input class="form__submit" type="submit" value="Заглушить">
           </div>
         </form>
@@ -33,9 +33,9 @@
         <div class="player__video-container"></div>
         <div class="player__audio-container"></div>
         <video class="player__noisevideo" loop>
-          <source src="media/noise.mp4" type="video/mp4">
-          <source src="media/noise.ogv" type="video/ogg">
-          <source src="media/noise.webm" type="video/webm">
+          <source src="./media/noise.mp4" type="video/mp4">
+          <source src="./media/noise.ogv" type="video/ogg">
+          <source src="./media/noise.webm" type="video/webm">
         </video>
         <div class="player__controls controls">
           <div class="controls__item controls__state controls__state_play"></div>
