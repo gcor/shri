@@ -1,0 +1,62 @@
+.controls
+    display table
+    table-layout fixed
+    border-spacing 10px
+    background-color rgba(0, 0, 0, .5)
+    &:before
+        content ''
+        position absolute
+        width 150%
+        height 100%
+        left -25%
+        bottom 0px
+        box-shadow 0 0 30px 20px rgba(0, 0, 0, .5)
+    &__item
+        display table-cell
+    &__state
+        position relative
+        width 30px
+        &_play
+            &:before
+                content ''
+                position absolute
+                top 50%
+                margin-top -10px
+                border 10px solid transparent
+                border-left-width 20px
+                border-left-color white
+        &_pause
+            &:before,
+            &:after
+                content ''
+                position absolute
+                background-color white
+                width 4px
+                height 20px
+                top 50%
+                margin-top -10px
+                margin-left -4px
+            &:before
+                left 15%
+            &:after
+                left 48%
+    &__progress
+        width 100%
+        position relative
+        box-sizing border-box
+        &:before
+            content ''
+            background-color #838383
+            position absolute
+            width 100%
+            height 4px
+            top 50%
+            margin-top -2px
+    &__now
+        position absolute
+        background-color white
+        width 0%
+        height 4px
+        top 50%
+        margin-top -2px
+        transition width .3s
