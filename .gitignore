@@ -23,3 +23,7 @@ npm-debug.log
 Android/bin/
 Android/gen/
 Android/assets/
+platforms/
+plugins/
+.bithoundrc
+.npmignore
