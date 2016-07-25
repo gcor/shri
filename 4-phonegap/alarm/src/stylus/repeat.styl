@@ -1,0 +1,57 @@
+.repeat
+	margin-top 20px
+	padding 0 30px
+	display flex
+	align-items center
+	box-sizing border-box
+	&.repeat_active
+		.repeat__cell_type_text
+			display none
+		.repeat__switcher
+			border-color #6EB229
+			&:after
+				content ''
+				background-image url('../img/check.svg')
+				background-repeat no-repeat
+				position absolute
+				width: 20px;
+				height: 20px;
+				top: 50%;
+				left: 50%;
+				margin-top: -9px;
+				margin-left: -10px;
+				
+	&:not(.repeat_active) .repeat__cell_type_list
+		display none
+	
+.repeat__cell
+	&_type
+		&_switcher
+			padding-right 25px
+		&_text
+			font-size 20px
+
+.repeat__switcher
+	width 30px
+	height 30px
+	box-sizing border-box
+	border-radius 10px
+	border 3px solid #000
+	position relative
+
+.repeat__list
+	display flex
+	justify-content space-between
+
+.repeat__item
+	text-transform uppercase
+	letter-spacing 1px
+	font-size 18px
+	color #CCC
+	&.on
+		color #000
+
+.repeat__text
+	width 100%
+	padding-left 25px
+	font-size 20px

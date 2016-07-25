@@ -20,5 +20,6 @@ npm-debug.log
 !*pages*/*/*.bemjson.js
 !*pages*/.bem/*
 
-*/**/bower/**/*
-2-doors/client/js/bower
+Android/bin/
+Android/gen/
+Android/assets/

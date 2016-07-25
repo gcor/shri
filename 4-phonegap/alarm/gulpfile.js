@@ -1,13 +1,16 @@
 'use strict';
 
 var gulp = require('gulp'),
-    stylus = require('gulp-stylus'),
-    csso = require('gulp-csso'),
     pug = require('gulp-pug'),
+    csso = require('gulp-csso'),
+    shell = require('gulp-shell'),
+    stylus = require('gulp-stylus'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     webpack = require('gulp-webpack'),
+    plumber = require('gulp-plumber'),
     imagemin = require('gulp-imagemin'),
+    sourcemaps = require('gulp-sourcemaps'),
     pngquant = require('imagemin-pngquant'),
     prefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create(),
@@ -17,26 +20,26 @@ var gulp = require('gulp'),
 var config = {
     client: {
         port: 8080,
-        files: './client/**/*',
-        server: './public/'
+        files: './src/**/*',
+        server: './www/'
     },
     from: {
-        stylus_common: "./client/stylus/style.styl",
-        stylus: "./client/stylus/**/*.styl",
-        js: ["./client/js/**/*.js", "./client/templates/**/*", '!node_modules/**', '!client/js/bower/**/*'],
-        img: "./client/img/**/*",
-        pug_common: "./client/pages/**/*.pug",
-        pug: ["./client/pages/**/*.pug", "./client/pug/**/*.pug"]
+        stylus_common: "./src/stylus/style.styl",
+        stylus: "./src/stylus/**/*.styl",
+        js: ["./src/js/**/*.js", "./src/templates/**/*", '!node_modules/**', '!src/js/bower/**/*'],
+        img: "./src/img/**/*",
+        pug_common: "./src/pages/*.pug",
+        pug: ["./src/pages/**/*.pug", "./src/pug/**/*.pug"]
     },
     to: {
-        css: "./public/css/",
-        js: "./public/js/",
-        img: "./public/img/",
-        html: "./public/"
+        css: "./www/css/",
+        js: "./www/js/",
+        img: "./www/img/",
+        html: "./www/"
     }
 };
 
-gulp.task('client', ['pug', 'stylus', 'js', 'images', 'client-sync'], function() {
+gulp.task('w', ['pug', 'stylus', 'js', 'images', 'client-sync'], function() {
     gulp.watch(config.from.pug, ['pug']);
     gulp.watch(config.from.stylus, ['stylus']);
     gulp.watch(config.from.js, ['js']);
@@ -57,18 +60,23 @@ gulp
     })
     .task('client-sync', function() {
         browserSync.init(null, {
+            open: false,
             notify: false,
             server: config.client.server,
             files: config.client.files,
             port: config.client.port
         });
+        // shell.task(['phonegap serve'])()
     })
     .task('stylus', function() {
         gulp.src(config.from.stylus_common)
-            .pipe(stylus())
-            .on('error', console.log)
-            .pipe(prefixer())
-            .pipe(csso())
+            .pipe(plumber())
+            .pipe(sourcemaps.init())
+                .pipe(stylus())
+                .on('error', console.log)
+                .pipe(prefixer())
+                .pipe(csso())
+            .pipe(sourcemaps.write())
             .pipe(gulp.dest(config.to.css))
             .pipe(reload({
                 stream: true
@@ -76,14 +84,12 @@ gulp
     })
     .task('js', function() {
         gulp.src(config.from.js)
+            .pipe(plumber())
             .pipe(webpack({
                 module: {
                     loaders: [{
                         test: /\.jsx?$/,
                         loader: 'babel?presets[]=es2015'
-                    }, {
-                        test: /\.hbs$/,
-                        loader: 'handlebars-loader'
                     }]
                 },
                 output: {
@@ -99,12 +105,7 @@ gulp
     .task('images', function() {
         gulp.src(config.from.img)
             .pipe(imagemin({
-                progressive: true,
-                svgoPlugins: [{
-                    removeViewBox: false
-                }],
-                use: [pngquant()],
-                interlaced: true
+                progressive: true
             }))
             .pipe(gulp.dest(config.to.img))
             .pipe(reload({
