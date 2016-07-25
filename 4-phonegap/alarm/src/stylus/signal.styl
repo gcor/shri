@@ -1,0 +1,83 @@
+.signal
+	background-color #FFF
+	padding 20px 0
+	border-radius 5px
+	margin-bottom 15px
+	white-space nowrap
+	&.on
+		.signal__switcher
+			border-color #6EB229
+			&:after
+				right -15px
+				background-color #6EB229
+	&:not(.edit) {
+		.signal__repeat,
+		.signal__delete,
+		.signal__keyboard,
+		.signal__description {
+			display none
+		}
+	}
+	&:last-child
+		margin-bottom 0
+			
+.signal__header
+	display flex
+	justify-content: space-between;
+	width 100%
+	padding 0 20px
+	box-sizing border-box
+
+.signal__cell 
+	display flex
+	align-items center
+	&_type_time
+		align-items flex-start
+
+.signal__time
+	font-size 80px
+	line-height 70px
+	display flex
+
+.signal__delimit,
+.signal__char
+	&.on
+		color #D0021B
+
+.signal__description
+	max-width 80px
+	text-transform uppercase
+	display inline-block
+	vertical-align top
+	padding-left 10px
+	font-size 16px
+	box-sizing border-box
+	white-space normal
+
+.signal__delete
+	width 30px
+	height 30px
+	background-image url('../img/delete.svg')
+	background-repeat no-repeat
+	margin 0 auto
+
+.signal__switcher
+	display inline-block
+	width 38px
+	height 24px
+	border 3px solid #D0021B
+	border-radius 30px
+	position relative
+	transition border .2s
+	box-sizing border-box
+	margin-right 15px
+	&:after
+		content ''
+		position absolute
+		top -6px
+		width 30px
+		height 30px
+		border-radius 50%
+		transition right .2s, background .2s
+		right 15px
+		background-color #D0021B
