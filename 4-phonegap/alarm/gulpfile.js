@@ -16,7 +16,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     reload = browserSync.reload;
 
-
 var config = {
     client: {
         port: 8080,
