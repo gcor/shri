@@ -1,6 +1,5 @@
 .signal
 	background-color #FFF
-	padding 20px 0
 	border-radius 5px
 	margin-bottom 15px
 	white-space nowrap
@@ -10,20 +9,19 @@
 			&:after
 				right -15px
 				background-color #6EB229
-	&:not(.edit) {
+	&:not(.edit)
 		.signal__repeat,
-		.signal__delete,
-		.signal__keyboard,
-		.signal__description {
+		.signal__cell_type_delete,
+		.signal__keyboard
 			display none
-		}
-	}
+	&.edit
+		.signal__description
+			display node
 	&:last-child
 		margin-bottom 0
 			
 .signal__header
 	display flex
-	justify-content: space-between;
 	width 100%
 	padding 0 20px
 	box-sizing border-box
@@ -31,25 +29,34 @@
 .signal__cell 
 	display flex
 	align-items center
-	&_type_time
-		align-items flex-start
+	padding 20px 0;
+	&_type
+		&_time
+			align-items flex-start
+		&_delete
+			width 40px
+			margin-right 40px
+		&_description
+			width 100%
 
 .signal__time
 	font-size 80px
 	line-height 70px
 	display flex
 
-.signal__delimit,
 .signal__char
+	&:nth-child(2):after {
+		content ':'
+		color #000;
+	}
 	&.on
 		color #D0021B
 
 .signal__description
 	max-width 80px
 	text-transform uppercase
-	display inline-block
-	vertical-align top
 	padding-left 10px
+	align-self flex-start
 	font-size 16px
 	box-sizing border-box
 	white-space normal

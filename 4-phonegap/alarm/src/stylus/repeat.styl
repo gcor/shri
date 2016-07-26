@@ -1,11 +1,9 @@
 .repeat
-	margin-top 20px
-	padding 0 30px
 	display flex
 	align-items center
 	box-sizing border-box
 	&.repeat_active
-		.repeat__cell_type_text
+		.repeat__description
 			display none
 		.repeat__switcher
 			border-color #6EB229
@@ -21,16 +19,25 @@
 				margin-top: -9px;
 				margin-left: -10px;
 				
-	&:not(.repeat_active) .repeat__cell_type_list
-		display none
+	&:not(.repeat_active) 
+		.repeat__cell_type_switcher
+			width 100%
+		.repeat__cell_type_list
+			display none
 	
 .repeat__cell
 	&_type
 		&_switcher
-			padding-right 25px
-		&_text
-			font-size 20px
+			display flex
+			align-items center
+			padding 10px 0 20px 30px
+		&_list
+			width 100%
 
+.repeat__description
+	font-size 20px
+	padding 0 15px 0 20px
+	
 .repeat__switcher
 	width 30px
 	height 30px
@@ -41,6 +48,7 @@
 
 .repeat__list
 	display flex
+	padding 0 15px 0 5px
 	justify-content space-between
 
 .repeat__item
@@ -48,6 +56,7 @@
 	letter-spacing 1px
 	font-size 18px
 	color #CCC
+	padding: 10px 15px 20px 15px
 	&.on
 		color #000
 
