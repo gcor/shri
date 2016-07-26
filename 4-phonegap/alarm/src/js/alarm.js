@@ -7,10 +7,8 @@ export default class Alarm {
         const $header = document.querySelector('.alarm__header');
         const $body = document.querySelector('.alarm__body');
 
-        this.store = new Store();
-
-        const signals = this.initSignals(this.store.signals);
-        const quickAdd = this.initQuickAdd(this.store.times);
+        const signals = this.initSignals();
+        const quickAdd = this.initQuickAdd();
 
         $header.appendChild(quickAdd);
         $body.appendChild(signals);
@@ -18,18 +16,19 @@ export default class Alarm {
     initQuickAdd(times) {
         const el = document.createElement('div');
         el.className = 'alarm__add';
-        // times.map(data => {
-            const instanse = new QuickAdd;
-            el.appendChild(instanse.render())
-        // });
+        const instanse = new QuickAdd;
+        el.appendChild(instanse.render())
         return el;
     }
-    initSignals(signals) {
+    initSignals() {
+        const store = new Store();
         const el = document.createElement('div');
-        el.className = 'alarm__signal';
+        const signals = store.signals;
+        el.className = 'alarm__signals';
+
         signals.map(data => {
-            const instanse = new Signal;
-            el.appendChild(instanse.render(data))
+            const instanse = new Signal(data);
+            el.appendChild(instanse.render())
         });
         return el;
     }
