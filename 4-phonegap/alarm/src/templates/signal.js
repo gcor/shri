@@ -1,15 +1,13 @@
-const weekDays = ["Mn", "Ts", "Wd", "Th", "Fr", "St", "Sn"];
-
 export const str = data => `
 	<div class="signal__header">
 		<div class="signal__cell signal__cell_type_time">
 			<div class="signal__time">
-				${signalTime(data.time)}
+				${signalTime(data.hour, data.minute)}
 			</div>
 		</div>
 		<div class="signal__cell signal__cell_type_description">
 			<div class="signal__description">
-				${signalDescription(data.time, data.repeat)}
+				${signalDescription(data.repeat, data.weekDays)}
 			</div>
 		</div>
 		<div class="signal__cell signal__cell_type_delete">
@@ -42,19 +40,19 @@ export const str = data => `
 		</div>
 		<div class="repeat__cell repeat__cell_type_list">
 			<div class="repeat__list">
-				${repeatItems(data.repeat)}
+				${repeatItems(data.repeat, data.weekDays)}
 			</div>
 		</div>
 	</div>
 `
 
-export const signalTime = (time) => {
+export const signalTime = (hour, minute) => {
     let html = '';
-    let h = time.getHours().toString();
-    let m = time.getMinutes().toString();
+    let h = '' + hour;
+    let m = '' + minute;
 
-    if (h.length === 1) h = 0 + h;
-    if (m.length === 1) m = 0 + m;
+    if (h.length === 1) h = 0 + h; // 9->09
+    if (m.length === 1) m = 0 + m; // 2->02
 
     for (let i = 0; i < h.length; i++) {
         html += `<div class="signal__char" data-value="${h[i]}">${h[i]}</div>`
@@ -65,23 +63,20 @@ export const signalTime = (time) => {
     return html
 }
 
-export const repeatItems = (times) => {
+export const repeatItems = (times, weekdays) => {
     let html = '';
-    weekDays.forEach((day, i) => {
+    weekdays.forEach((day, i) => {
         let activeClass = (times.indexOf(i) > -1) ? 'on' : '';
-        html += `<div class="repeat__item ${activeClass}">${day}</div>`
+        html += `<div class="repeat__item ${activeClass}" data-value="${i}">${day}</div>`
     });
     return html
 }
 
-export const signalDescription = (signal, times) => {
+export const signalDescription = (times, weekdays) => {
     let html = '';
-    if (!times.length) {
-        const diff = (new Date()) - signal;
-        // return -Math.round(diff/1000/60)
-    } else {
+    if (!!times.length) {
         times.forEach((day) => {
-            html += `${weekDays[day]}, `
+            html += `${weekdays[day]}, `
         });
     }
     return html.slice(0, -2);

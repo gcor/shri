@@ -14,4 +14,6 @@ class App {
 
 const app = new App();
 
-app.onDeviceReady()
+
+// forse start
+// app.onDeviceReady();
