@@ -19,7 +19,7 @@ export default class Alarm {
 
         el.className = 'alarm__add';
         el.appendChild(instanse.render())
-        
+
         this.$header.appendChild(el);
     }
 
