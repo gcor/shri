@@ -42,22 +42,22 @@ export default class Signal {
         this.$repeatWrap = this.$el.querySelector('.repeat');
         this.$repeatDay = this.$el.querySelectorAll('.repeat__item');
 
-        this.$signalDescBlock.addEventListener('click', Signal.onEdit.bind(this));
-        this.$signalDelete.addEventListener('click', Signal.onRemove.bind(this));
-        this.$signalSwitcher.addEventListener('click', Signal.onChangeState.bind(this));
-        this.$repeatSwitcher.addEventListener('click', Signal.onRepeatState.bind(this));
+        this.$signalDescBlock.addEventListener('touchstart', Signal.onEdit.bind(this));
+        this.$signalDelete.addEventListener('touchstart', Signal.onRemove.bind(this));
+        this.$signalSwitcher.addEventListener('touchstart', Signal.onChangeState.bind(this));
+        this.$repeatSwitcher.addEventListener('touchstart', Signal.onRepeatState.bind(this));
 
         for (let day of this.$repeatDay) {
-            day.addEventListener('click', Signal.onRepeatDay.bind(this));
+            day.addEventListener('touchstart', Signal.onRepeatDay.bind(this));
         }
 
         for (let char of this.$signalChar) {
             this.currentInputTime.push(char.getAttribute('data-value'));
-            char.addEventListener('click', Signal.onCharClick.bind(this));
+            char.addEventListener('touchstart', Signal.onCharClick.bind(this));
         }
 
         for (let key of this.$keyboardNum) {
-            key.addEventListener('click', Signal.onKeyClick.bind(this));
+            key.addEventListener('touchstart', Signal.onKeyClick.bind(this));
         }
 
         if (this.model.repeat.length) {

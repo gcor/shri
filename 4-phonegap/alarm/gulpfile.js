@@ -27,6 +27,7 @@ var config = {
         stylus: "./src/stylus/**/*.styl",
         js: ["./src/js/**/*.js", "./src/templates/**/*", '!node_modules/**', '!src/js/bower/**/*'],
         img: "./src/img/**/*",
+        media: "./src/media/**/*",
         pug_common: "./src/pages/*.pug",
         pug: ["./src/pages/**/*.pug", "./src/pug/**/*.pug"]
     },
@@ -34,11 +35,12 @@ var config = {
         css: "./www/css/",
         js: "./www/js/",
         img: "./www/img/",
+        media: "./www/media/",
         html: "./www/"
     }
 };
 
-gulp.task('w', ['pug', 'stylus', 'js', 'images', 'client-sync'], function() {
+gulp.task('w', ['pug', 'stylus', 'js', 'images', 'media', 'client-sync'], function() {
     gulp.watch(config.from.pug, ['pug']);
     gulp.watch(config.from.stylus, ['stylus']);
     gulp.watch(config.from.js, ['js']);
@@ -97,6 +99,13 @@ gulp
             }))
             .pipe(uglify())
             .pipe(gulp.dest(config.to.js))
+            .pipe(reload({
+                stream: true
+            }));
+    })
+    .task('media', function () {
+        gulp.src(config.from.media)
+            .pipe(gulp.dest(config.to.media))
             .pipe(reload({
                 stream: true
             }));
