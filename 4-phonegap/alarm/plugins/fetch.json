@@ -1,0 +1,18 @@
+{
+    "cordova-plugin-indexedDB": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-indexedDB"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+     "org.nypr.cordova.wakeupplugin": {
+        "source": {
+            "type": "registry",
+            "id": "org.nypr.cordova.wakeupplugin"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
