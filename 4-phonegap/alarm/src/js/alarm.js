@@ -4,6 +4,7 @@ import QuickAdd from './quickAdd'
 
 export default class Alarm {
     constructor() {
+        this.store = new Store();
         const $header = document.querySelector('.alarm__header');
         const $body = document.querySelector('.alarm__body');
 
@@ -13,23 +14,36 @@ export default class Alarm {
         $header.appendChild(quickAdd);
         $body.appendChild(signals);
     }
+
     initQuickAdd(times) {
         const el = document.createElement('div');
         el.className = 'alarm__add';
-        const instanse = new QuickAdd;
+        const instanse = new QuickAdd(this);
         el.appendChild(instanse.render())
         return el;
     }
+
     initSignals() {
-        const store = new Store();
         const el = document.createElement('div');
-        const signals = store.signals;
+        const signals = this.store.signals;
         el.className = 'alarm__signals';
+        this.$signals = el;
 
         signals.map(data => {
-            const instanse = new Signal(data);
-            el.appendChild(instanse.render())
+            this.renderSignal(data);
         });
+
         return el;
+    }
+
+    add(hour, minute) {
+        this.store.add(hour, minute, (data) => {
+            this.renderSignal(data, {open: true})
+        })
+    }
+
+    renderSignal(data, config = {}) {
+        const instanse = new Signal(this.store, data);
+        this.$signals.insertBefore(instanse.render(config), this.$signals.firstChild)
     }
 }

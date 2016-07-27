@@ -2,77 +2,47 @@ import Store from './store';
 import * as signalTemplate from '../templates/signal'
 
 export default class Signal {
-    constructor(model) {
+    constructor(store, data) {
+        const el = document.createElement('div');
+        el.className = 'signal';
+
         this.isEdit = false;
         this.isActive = false;
         this.isRepeat = false;
-        this.template = signalTemplate.str;
-
-        const el = document.createElement('div');
-        el.className = 'signal';
-        el.innerHTML = this.template(model);
-        this.$el = el;
-
-        this.active = model.active;
-        this.repeat = model.repeat;
-        this.time = model.time;
-
         this.currentInputTime = [];
         this.currentInputEditPosition = null;
         this.currentChar = null;
-        this.currentKey = null;
+        this.template = signalTemplate.str;
+        this.store = store;
+        this.id = data.id;
+        this.model = {
+            id: data.id,
+            active: data.active,
+            repeat: data.repeat,
+            hour: data.hour,
+            minute: data.minute,
+            weekDays: ["Mn", "Ts", "Wd", "Th", "Fr", "St", "Sn"]
+        }
+
+        el.innerHTML = this.template(this.model);
+        this.$el = el;
 
         this.initialize();
+    }
 
-    }
-    open() {
-        this.isEdit = true;
-        this.$el.classList.add('edit');
-
-        this.on();
-
-        // начинаем редактировать сначала
-        this.setInputTime();
-    }
-    close() {
-        this.isEdit = false;
-        this.$el.classList.remove('edit');
-        this.currentChar.classList.remove('on');
-    }
-    on() {
-        this.isActive = true;
-        this.$el.classList.add('on');
-    }
-    off() {
-        this.isActive = false;
-        this.$el.classList.remove('on');
-    }
-    activeRepeat() {
-        this.isRepeat = true;
-        this.$repeatWrap.classList.add('repeat_active');
-    }
-    disactiveRepeat() {
-        this.isRepeat = false;
-        this.$repeatWrap.classList.remove('repeat_active');
-        for (let day of this.$repeatDay) {
-            this.repeat = [];
-            day.classList.remove('on');
-        }
-    }
     initialize() {
-
         this.$keyboardNum = this.$el.querySelectorAll('.keyboard__num');
         this.$signalChar = this.$el.querySelectorAll('.signal__char');
         this.$signalTime = this.$el.querySelector('.signal__time');
-        this.$signalDesc = this.$el.querySelector('.signal__cell_type_description');
+        this.$signalDescription = this.$el.querySelector('.signal__description');
+        this.$signalDescBlock = this.$el.querySelector('.signal__cell_type_description');
         this.$signalDelete = this.$el.querySelector('.signal__cell_type_delete');
         this.$signalSwitcher = this.$el.querySelector('.signal__cell_type_switcher');
         this.$repeatSwitcher = this.$el.querySelector('.repeat__cell_type_switcher');
         this.$repeatWrap = this.$el.querySelector('.repeat');
         this.$repeatDay = this.$el.querySelectorAll('.repeat__item');
 
-
-        this.$signalDesc.addEventListener('click', Signal.onEdit.bind(this));
+        this.$signalDescBlock.addEventListener('click', Signal.onEdit.bind(this));
         this.$signalDelete.addEventListener('click', Signal.onRemove.bind(this));
         this.$signalSwitcher.addEventListener('click', Signal.onChangeState.bind(this));
         this.$repeatSwitcher.addEventListener('click', Signal.onRepeatState.bind(this));
@@ -90,28 +60,93 @@ export default class Signal {
             key.addEventListener('click', Signal.onKeyClick.bind(this));
         }
 
-        if (this.repeat.length) {
+        if (this.model.repeat.length) {
             this.activeRepeat()
         }
-        if (this.active) {
+
+        if (this.model.active) {
             this.on()
         }
     }
 
-    activeKey(value) {
-        for (let $key of this.$keyboardNum) {
-            const keyValue = $key.getAttribute('data-value');
-            if (keyValue === value) $key.classList.add('on');
-            else $key.classList.remove('on');
+    on() {
+        this.isActive = true;
+        this.$el.classList.add('on');
+    }
+
+    off() {
+        this.isActive = false;
+        this.$el.classList.remove('on');
+    }
+
+    open() {
+        this.isEdit = true;
+        this.$el.classList.add('edit');
+
+        // включаем будильник
+        this.on();
+
+        // начинаем редактировать с первого
+        this.editTime();
+
+        // disabled то что нельзя нажасть
+        this.updateKeys();
+    }
+
+    close() {
+        this.isEdit = false;
+        this.$el.classList.remove('edit');
+        this.currentChar.classList.remove('on');
+    }
+
+    remove() {
+        this.store.remove(this.id);
+    }
+    save() {
+        const time = this.currentInputTime.join('');
+
+        this.model.active = this.isActive;
+        this.model.hour = parseInt(time[0] + '' + time[1]);
+        this.model.minute = parseInt(time[2] + '' + time[3]);
+
+        this.store.set(this.id, this.model);
+    }
+
+    activeRepeat() {
+        this.isRepeat = true;
+        this.$repeatWrap.classList.add('repeat_active');
+    }
+
+    disactiveRepeat() {
+        this.isRepeat = false;
+        this.$repeatWrap.classList.remove('repeat_active');
+        this.$signalDescription.innerHTML = '';
+        this.model.repeat = [];
+
+        for (let day of this.$repeatDay) {
+            day.classList.remove('on');
         }
     }
+
+    disableKeys(minValue, maxValue) {
+        for (let $key of this.$keyboardNum) {
+            const keyValue = parseInt($key.getAttribute('data-value'));
+            if (keyValue >= minValue && keyValue <= maxValue) {
+                $key.classList.add('disable');
+            } else {
+                $key.classList.remove('disable');
+            }
+        }
+    }
+
     activeChar(show = true) {
         for (let $char of this.$signalChar) {
             $char.classList.remove('on');
         }
         if (show) this.currentChar.classList.add('on');
     }
-    setInputTime(position, value) {
+
+    editTime(position, value) {
         // запоминаем новую позицию
         this.currentInputEditPosition = position || 0;
 
@@ -120,23 +155,35 @@ export default class Signal {
 
         //выделяем нужную цифру
         this.activeChar();
-        this.activeKey(this.currentInputTime[this.currentInputEditPosition]);
 
         if (value) {
             // записываем в верстку
             this.currentInputTime[this.currentInputEditPosition] = value;
             this.currentChar.setAttribute('data-value', value);
             this.currentChar.innerHTML = value;
+
+            // сохраняем
+            this.save();
         }
-        this.updateKeys();
     }
 
     updateKeys() {
-    	// const h = parseInt(this.currentInputTime.slice(0,2).join(''));
-    	// const m = parseInt(this.currentInputTime.slice(-2,this.currentInputTime.length).join(''));
-    	// console.log(h, m);
-
-    	// disabled
+        const time = this.currentInputTime;
+        switch (this.currentInputEditPosition) {
+            case 0:
+                this.disableKeys(3, 9);
+                break;
+            case 1:
+                if (parseInt(time[0]) === 2) this.disableKeys(4, 9);
+                if (parseInt(time[0]) === 0) this.disableKeys(false);
+                break;
+            case 2:
+                this.disableKeys(6, 9);
+                break;
+            case 3:
+                this.disableKeys(false);
+                break;
+        }
     }
 
     static onEdit() {
@@ -146,14 +193,17 @@ export default class Signal {
             this.open();
         }
     }
+
     static onRemove() {
         this.$el.remove();
-        console.log('remove')
+        this.remove();
     }
+
     static onChangeState() {
         if (this.isActive) this.off()
         else this.on();
     }
+
     static onRepeatState() {
         if (this.isRepeat) {
             this.disactiveRepeat();
@@ -161,39 +211,63 @@ export default class Signal {
             this.activeRepeat()
         }
     }
+
     static onRepeatDay(e) {
-        e.target.classList.toggle('on');
+        e.target.classList.toggle('on')
+
+        const repeat = [];
+        const days = [];
+        for(let day of this.$repeatDay) {
+            const value = day.getAttribute('data-value');
+            if (day.classList.contains('on')) {
+                repeat.push(value);
+                days.push(day.innerHTML);
+            }
+        }
+        this.model.repeat = repeat;
+
+        this.$signalDescription.innerHTML = days.join(', ');
+        this.save();
     }
+
     static onCharClick(e) {
         if (!this.isEdit) {
             this.open();
         } else {
             let position = 0;
             for (let $char of this.$signalChar) {
-                if ($char === e.target) this.setInputTime(position);
+                if ($char === e.target) this.editTime(position);
                 position++;
+            }
+
+            // disabled то что нельзя нажасть
+            this.updateKeys();
+        }
+    }
+
+    static onKeyClick(e) {
+        const value = e.target.getAttribute('data-value');
+        if (this.isEdit && !e.target.classList.contains('disable')) {
+            const next = this.currentChar.nextElementSibling;
+            this.editTime(this.currentInputEditPosition, value)
+            if (!!next) {
+                this.currentInputEditPosition++;
+                this.currentChar = next;
+
+                // disabled то что нельзя нажасть
+                this.updateKeys();
+
+                // выделяем красным букву, которую будем редактировать
+                this.activeChar()
+            } else {
+                this.activeChar(false);
+                this.isEdit = false;
             }
         }
     }
-    static onKeyClick(e) {
-        const value = e.target.getAttribute('data-value');
-        if (this.isEdit && !e.target.classList.contains('disabled')) {
-        	const next = this.currentChar.nextElementSibling;
-        	this.setInputTime(this.currentInputEditPosition, value)
-        	if (!!next) {
-        		this.currentInputEditPosition = this.currentInputEditPosition + 1;
-        		this.currentChar = next;
-	        	this.activeChar()
-	        	this.activeKey(this.currentInputTime[this.currentInputEditPosition]);
-        	}
-        	else {
-        		this.activeKey(false);
-        		this.activeChar(false);
-        		this.isEdit = false;
-        	}
-        }
-    }
-    render(data) {
+
+    render(config = {}) {
+        if (!!config.open) this.open();
         return this.$el;
     }
 }
