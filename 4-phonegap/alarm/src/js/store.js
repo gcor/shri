@@ -1,59 +1,59 @@
 export default class Store {
-    constructor() {
+    constructor(initCallback) {
         const indexedDB = window.indexedDB.open("alarmDatabase57");
+
+        this.db = null;
+        this.initCallback = initCallback;
 
         indexedDB.addEventListener('upgradeneeded', Store.onUpgradeneeded.bind(this));
         indexedDB.addEventListener('success', Store.onSuccess.bind(this));
         indexedDB.addEventListener('error', Store.onError.bind(this));
-
-        this.signals = [{
-            id: 0,
-            active: false,
-            hour: 13,
-            minute: 19,
-            repeat: [0, 5]
-        }, {
-            id: 1,
-            active: true,
-            hour: 7,
-            minute: 10,
-            repeat: []
-        }];
-        this.lastId = this.signals[this.signals.length - 1].id;
     }
 
-    getAll() {
-        return this.signals;
+    getAll(cb) {
+        const request = this.db.transaction("signals")
+            .objectStore("signals")
+            .getAll();
+
+        request.onsuccess = event => {
+            if (cb) cb(event.target.result);
+        }
+        request.onerror = event => console.log("Failed", event);
     }
 
-    set(id, signal) {
-        this.signals.forEach((item, i) => {
-            if (item.id === id) this.signals[i] = signal;
-        });
+    set(signal) {
+        const request = this.db.transaction("signals", "readwrite")
+            .objectStore("signals")
+            .put(signal);
+
+        request.onerror = event => console.log("Failed", event);
     }
 
     add(h, m, cb) {
-        const item = {
-            id: this.lastId++,
-            active: false,
+        const signal = {
+            active: false, // по умолчанию выключено
             hour: h,
             minute: m,
             repeat: []
-        }
-        this.signals.push(item);
-        cb(item);
+        };
+
+        const request = this.db.transaction("signals", "readwrite")
+            .objectStore("signals")
+            .add(signal);
+
+        request.onsuccess = event => {
+            signal.id = event.target.result;
+            if (cb) cb(signal);
+        };
+        request.onerror = event => console.log("Failed", event);
     }
 
     remove(id) {
-        let removeIndex = null;
-        this.signals.forEach((item, i) => {
-            if (item.id === id) removeIndex = i;
-        });
-        arr.splice(removeIndex, 1);
-    }
+        const request = this.db.transaction("signals", "readwrite")
+            .objectStore("signals")
+            .delete(id);
 
-    drop() {
-        this.signals = [];
+        request.onerror = event => console.log("Failed", event);
     }
 
     static onUpgradeneeded(e) {
@@ -63,22 +63,11 @@ export default class Store {
 
     static onSuccess(e) {
         this.db = e.target.result;
-
-        const sampleItem = {
-            todo: "my todo item",
-            added_on: (new Date()).toString()
-        };
-
-        const request = this.db.transaction("signals", "readwrite")
-            .objectStore("signals")
-            .add(sampleItem);
-
-        request.onsuccess = event => console.log("Operation completed successfully");
-        request.onerror = event => console.log("Operation failed");
+        this.initCallback();
     }
 
     static onError() {
-        console.log("Operation failed");
+        console.log("Failed");
     }
 
 }

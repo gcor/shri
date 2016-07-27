@@ -1,4 +1,5 @@
 import Alarm from './alarm';
+import Store from './store';
 
 class App {
     constructor () {
@@ -8,7 +9,10 @@ class App {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     }
     onDeviceReady() {
-        const alarm = new Alarm();
+    	const store = new Store(() => {
+    		// запускаем будильник после инициализации БД
+	        const alarm = new Alarm(store);
+    	});
     }
 };
 

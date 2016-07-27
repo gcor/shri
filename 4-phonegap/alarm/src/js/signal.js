@@ -109,7 +109,7 @@ export default class Signal {
         this.model.hour = parseInt(time[0] + '' + time[1]);
         this.model.minute = parseInt(time[2] + '' + time[3]);
 
-        this.store.set(this.id, this.model);
+        this.store.set(this.model);
     }
 
     activeRepeat() {
@@ -202,6 +202,7 @@ export default class Signal {
     static onChangeState() {
         if (this.isActive) this.off()
         else this.on();
+        this.save();
     }
 
     static onRepeatState() {
