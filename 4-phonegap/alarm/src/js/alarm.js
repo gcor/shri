@@ -3,42 +3,43 @@ import Signal from './signal'
 import QuickAdd from './quickAdd'
 
 export default class Alarm {
-    constructor() {
-        this.store = new Store();
-        const $header = document.querySelector('.alarm__header');
-        const $body = document.querySelector('.alarm__body');
+    constructor(store) {
+        this.store = store;
+        this.$header = document.querySelector('.alarm__header');
+        this.$body = document.querySelector('.alarm__body');
+        this.$signals = null;
 
-        const signals = this.initSignals();
-        const quickAdd = this.initQuickAdd();
-
-        $header.appendChild(quickAdd);
-        $body.appendChild(signals);
+        this.initSignals();
+        this.initQuickAdd();
     }
 
     initQuickAdd(times) {
         const el = document.createElement('div');
-        el.className = 'alarm__add';
         const instanse = new QuickAdd(this);
+
+        el.className = 'alarm__add';
         el.appendChild(instanse.render())
-        return el;
+        
+        this.$header.appendChild(el);
     }
 
     initSignals() {
         const el = document.createElement('div');
-        const signals = this.store.signals;
         el.className = 'alarm__signals';
         this.$signals = el;
 
-        signals.map(data => {
-            this.renderSignal(data);
-        });
+        const signals = this.store.getAll(signals => {
+            signals.map(data => {
+                this.renderSignal(data);
+            });
 
-        return el;
+            this.$body.appendChild(el);
+        });
     }
 
     add(hour, minute) {
         this.store.add(hour, minute, (data) => {
-            this.renderSignal(data, {open: true})
+            this.renderSignal(data, { open: true })
         })
     }
 
