@@ -20,10 +20,3 @@ npm-debug.log
 !*pages*/*/*.bemjson.js
 !*pages*/.bem/*
 
-Android/bin/
-Android/gen/
-Android/assets/
-platforms/
-plugins/
-.bithoundrc
-.npmignore
