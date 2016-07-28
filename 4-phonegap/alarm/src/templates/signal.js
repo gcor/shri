@@ -66,8 +66,9 @@ export const signalTime = (hour, minute) => {
 export const repeatItems = (times, weekdays) => {
     let html = '';
     weekdays.forEach((day, i) => {
-        let activeClass = (times.indexOf(String(i)) > -1) ? 'on' : '';
-        html += `<div class="repeat__item ${activeClass}" data-value="${i}">${day}</div>`
+    	let shift = i + 1 // week: [0..6] -> [1..7]
+        let activeClass = (times.indexOf(String(shift)) > -1) ? 'on' : '';
+        html += `<div class="repeat__item ${activeClass}" data-value="${shift}">${day}</div>`
     });
     return html
 }
@@ -76,7 +77,8 @@ export const signalDescription = (times, weekdays) => {
     let html = '';
     if (!!times.length) {
         times.forEach((day) => {
-            html += `${weekdays[day]}, `
+        	let shift = day - 1 // week: [1..7], not [0..6]
+            html += `${weekdays[shift]}, `
         });
     }
     return html.slice(0, -2);
