@@ -25,22 +25,28 @@ export default class Store {
     }
 
     set(signal) {
-        // повторяем раз в неделю
-        if (signal.repeat.length) {
-            signal.repeat.forEach((week, i) => {
+        if (signal.active) {
+            // повторяем раз в неделю
+            if (signal.repeat.length) {
+                signal.repeat.forEach((week, i) => {
+                    this.notify.update({
+                        id: `${signal.id}.${i}`,
+                        every: "week",
+                        at: Store.getWeekTime(week, signal.hour, signal.minute)
+                    })
+                });
+            } else {
+                // обычные оповещения
                 this.notify.update({
-                    id: `${signal.id}.${i}`,
-                    every: "week",
-                    firstAt: Store.getWeekTime(week, signal.hour, signal.minute)
+                    id: signal.id,
+                    at: Store.getOnceTime(signal.hour, signal.minute)
                 })
-            });
+            }
+        // если будильник выключаем, удаляем id
         } else {
-            // обычные оповещения
-            this.notify.update({
-                id: signal.id,
-                firstAt: Store.getOnceTime(signal.hour, signal.minute)
-            })
+            this.notify.clear(signal.id);
         }
+
 
         const request = this.db.transaction("signals", "readwrite")
             .objectStore("signals")
@@ -67,7 +73,7 @@ export default class Store {
 
             this.notify.add({
                 id: id,
-                firstAt: Store.getOnceTime(h, m)
+                at: Store.getOnceTime(h, m)
             });
 
             if (cb) cb(signal);

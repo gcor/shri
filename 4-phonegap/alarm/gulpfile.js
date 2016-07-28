@@ -50,9 +50,7 @@ gulp.task('w', ['pug', 'stylus', 'js', 'images', 'media', 'client-sync'], functi
 gulp
     .task('pug', function() {
         gulp.src(config.from.pug_common)
-            .pipe(pug({
-                pretty: true
-            }))
+            .pipe(pug())
             .on('error', console.log)
             .pipe(gulp.dest(config.to.html))
             .pipe(reload({
@@ -67,7 +65,7 @@ gulp
             files: config.client.files,
             port: config.client.port
         });
-        // shell.task(['phonegap serve'])()
+        // shell.task(['phonegap build browser', 'phonegap serve'])()
     })
     .task('stylus', function() {
         gulp.src(config.from.stylus_common)
