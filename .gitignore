@@ -20,3 +20,5 @@ npm-debug.log
 !*pages*/*/*.bemjson.js
 !*pages*/.bem/*
 
+*
+
