@@ -65,7 +65,7 @@ gulp
             files: config.client.files,
             port: config.client.port
         });
-        // shell.task(['phonegap build browser', 'phonegap serve'])()
+        shell.task(['phonegap build browser', 'phonegap serve'])()
     })
     .task('stylus', function() {
         gulp.src(config.from.stylus_common)
