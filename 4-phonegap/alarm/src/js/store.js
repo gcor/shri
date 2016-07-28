@@ -1,12 +1,11 @@
+import Notification from './notify'
+
 export default class Store {
     constructor(initCallback) {
         const indexedDB = window.indexedDB.open("alarmDatabase57");
-        this.notify = cordova.plugins.notification.local;
-        this.notifyTitle = "Alarm";
-        this.notifyText = "wake up!";
-        this.notifySound = "file://media/sound.mp3";
 
         this.db = null;
+        this.notify = new Notification();
         this.initCallback = initCallback;
 
         indexedDB.addEventListener('upgradeneeded', Store.onUpgradeneeded.bind(this));
@@ -28,25 +27,19 @@ export default class Store {
     set(signal) {
         // повторяем раз в неделю
         if (signal.repeat.length) {
-            signal.repeat.forEach((item, i) => {
+            signal.repeat.forEach((week, i) => {
                 this.notify.update({
                     id: `${signal.id}.${i}`,
-                    title: this.notifyTitle,
-                    text: this.notifyText,
-                    sound: this.notifySound,
-                    firstAt: Store.getTimeByHourAndMin(signal.hour, signal.minute),
-                    every: "week"
-                });
+                    every: "week",
+                    firstAt: Store.getWeekTime(week, signal.hour, signal.minute)
+                })
             });
         } else {
             // обычные оповещения
             this.notify.update({
                 id: signal.id,
-                title: this.notifyTitle,
-                text: this.notifyText,
-                sound: this.notifySound,
-                firstAt: Store.getTimeByHourAndMin(signal.hour, signal.minute)
-            });
+                firstAt: Store.getOnceTime(signal.hour, signal.minute)
+            })
         }
 
         const request = this.db.transaction("signals", "readwrite")
@@ -70,16 +63,13 @@ export default class Store {
 
         request.onsuccess = event => {
             let id = event.target.result;
+            signal.id = id;
 
-            this.notify.schedule({
+            this.notify.add({
                 id: id,
-                title: this.notifyTitle,
-                text: this.notifyText,
-                sound: this.notifySound,
-                firstAt: Store.getTimeByHourAndMin(h, m)
+                firstAt: Store.getOnceTime(h, m)
             });
 
-            signal.id = id;
             if (cb) cb(signal);
         };
         request.onerror = event => console.log("Failed", event);
@@ -109,15 +99,32 @@ export default class Store {
         console.log("Failed");
     }
 
-    static getTimeByHourAndMin(h, m) {
+    static getOnceTime(h, m) {
         let now = new Date();
-        let date = new Date(now.getFullYear(), now.getMonth(), now.getDay(), h, m);;
+        let date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);;
+        let day = 1000 * 60 * 60 * 24;
 
         // если сегодня уже прошло, назначаем сигнал на завтра
         if (now.getTime() > date.getTime()) {
-            date = date.getTime() + 1000 * 60 * 60 * 24;
+            date = date.getTime() + day;
         }
-        return date;
+
+        return (new Date(date));
     }
 
+    static getWeekTime(week, h, m) {
+        let now = new Date();
+        let date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);;
+        let day = 1000 * 60 * 60 * 24;
+
+        // день возвращаем до понедельника и прибавляем нужное количество дней.
+        date.setDate(date.getDate() - date.getDay() + parseInt(week));
+
+        // если сегодня уже прошло, назначаем сигнал на следующую неделю
+        if (now.getTime() > date.getTime()) {
+            date = date.getTime() + (day * 7);
+        }
+
+        return (new Date(date));
+    }
 }
