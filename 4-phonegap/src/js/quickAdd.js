@@ -18,14 +18,16 @@ export default class QuickAdd {
 		this.$dateAdd = this.$el.querySelectorAll('.quickadd__item_add-date');
 		this.$timeAdd = this.$el.querySelectorAll('.quickadd__item_add-time');
 
-		this.$nowAdd.addEventListener('touchstart', this.onAddNow.bind(this));
+
+		// click add 300ms
+		this.$nowAdd.addEventListener('click', this.onAddNow.bind(this));
 
 		for (let $date of this.$dateAdd) {
-			$date.addEventListener('touchstart', this.onAddDate.bind(this));
+			$date.addEventListener('click', this.onAddDate.bind(this));
 		}
 
 		for (let $time of this.$timeAdd) {
-			$time.addEventListener('touchstart', this.onAddTime.bind(this));
+			$time.addEventListener('click', this.onAddTime.bind(this));
 		}
 	}
 
