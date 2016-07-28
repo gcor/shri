@@ -1,13 +1,25 @@
+## Будильник ##
 
+В качестве приложения для реализации был выбран будильник, который я довольно давно нарисовал, но сделать его так и не получалось. Скачать для Android: [apk]().
 
-pho
+###Макет###
+В сторе  я не нашел будильников, в которых время сигнала вводится цифрами. Мне захотелось восполнить этот проблел. Правда такой подход показал ряд недостатков.  
+Сверху разположена панель с быстрым добавлением будильника. Можно поставить сразу будильник, как на утро, так и на подремать часик.
 
-gulp w:
-1. Следит за проектом через browsersync
+![Alarm](./src/media/alarm.png)
 
-2. Запускает phonepag serve
+###Сборка###
+Исходники проекта лежат в ./src и компилируются с поомощью gulp в папку www.  
+Команда `gulp w` вначале собирает проект:
+```
+phonegap build browser
+phonegap serve browser
+```
+После этого, как обычно, gulp следит за изменениями в проекте. 
 
-
-<!-- cordova plugin add com.msopentech.indexeddb -->
-cordova plugin add https://github.com/Microsoft/cordova-plugin-indexedDB --save
-cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications --save
+###Плагины###
+Для работы будиьника используются два плагина для:
+* сохранения сигналов в базу через [cordova-plugin-indexedDB](https://github.com/Microsoft/cordova-plugin-indexedDB)
+* показ нотификаций через [cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
+ 
+###Ньюансы###
