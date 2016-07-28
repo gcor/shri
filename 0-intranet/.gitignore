@@ -1,6 +1,0 @@
-node_modules/
-**/*.DS_Store
-/client/js/bower/
-.idea
-.idea/
-/public/
