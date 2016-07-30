@@ -24,6 +24,12 @@ phonegap serve browser
 * показ нотификаций через [cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
 * splashscreen [cordova-plugin-splashscreen](https://github.com/apache/cordova-plugin-splashscreen)
  
+###Фреймворк###
+* Framework7. Реализовано удаление через свайп
+
+###Скриншоты###
+![Menu](./src/media/screen1.jpg) ![Alarm](./src/media/screen2.jpg)
+
 ###Ньюансы###
 * Framework7
 * splashscreen требует установленный imagemagick
