@@ -4,13 +4,11 @@
     <description>Alarm</description>
     <author email="anton@gcor.ru" href="http://gcor.ru">Anton Ahatov</author>
     <content src="index.html" />
+    <preference name="android-build-tool" value="gradle" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
     <icon src="www/img/icon.png" />
     <splash src="www/img/splash.png" />
-    <plugin name="cordova-plugin-indexedDB" spec="https://github.com/Microsoft/cordova-plugin-indexedDB" />
-    <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications" />
-    <plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />
     <platform name="android">
         <icon qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png" />
         <icon qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png" />
@@ -39,4 +37,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <plugin name="cordova-plugin-indexedDB" spec="https://github.com/Microsoft/cordova-plugin-indexedDB" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications" />
+    <plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />
+    <engine name="android" spec="~5.1.1" />
 </widget>

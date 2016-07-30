@@ -12,9 +12,6 @@ export const str = data => `
 						${signalDescription(data.repeat, data.weekDays)}
 					</div>
 				</div>
-				<div class="signal__cell signal__cell_type_delete">
-					<div class="signal__delete signal__remove"></div>
-				</div>
 				<div class="signal__cell signal__cell_type_switcher">
 					<div class="signal__switcher"></div>
 				</div>

@@ -11,7 +11,7 @@
 
 ###Сборка###
 Исходники проекта лежат в src и компилируются с помощью gulp в папку www  
-Команда `gulp gap` вначале собирает приложение:
+Команда `sudo gulp gap` вначале собирает приложение:
 ```
 phonegap build browser
 phonegap serve browser
@@ -25,4 +25,5 @@ phonegap serve browser
 * splashscreen [cordova-plugin-splashscreen](https://github.com/apache/cordova-plugin-splashscreen)
  
 ###Ньюансы###
+* Framework7
 * splashscreen требует установленный imagemagick

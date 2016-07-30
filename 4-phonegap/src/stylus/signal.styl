@@ -11,7 +11,6 @@
 				background-color #6EB229
 	&:not(.edit)
 		.signal__repeat,
-		.signal__cell_type_delete,
 		.signal__keyboard
 			display none
 	&.edit
@@ -33,9 +32,6 @@
 	&_type
 		&_time
 			align-items flex-start
-		&_delete
-			width 40px
-			margin-right 40px
 		&_description
 			width 100%
 
@@ -60,13 +56,6 @@
 	font-size 16px
 	box-sizing border-box
 	white-space normal
-
-.signal__delete
-	width 30px
-	height 30px
-	background-image url('../img/delete.svg')
-	background-repeat no-repeat
-	margin 0 auto
 
 .signal__switcher
 	display inline-block

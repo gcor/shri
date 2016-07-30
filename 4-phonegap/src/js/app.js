@@ -16,7 +16,7 @@ class App {
         });
     }
     onPageError(e) {
-        // if(confirm(e.message)) location.reload();
+        if(confirm(e.message)) location.reload();
     }
 };
 

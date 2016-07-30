@@ -37,23 +37,23 @@ export default class Signal {
         this.$signalTime = $$(this.$el).find('.signal__time');
         this.$signalDescription = $$(this.$el).find('.signal__description');
         this.$signalDescBlock = $$(this.$el).find('.signal__cell_type_description');
-        this.$signalDelete = $$(this.$el).find('.signal__cell_type_delete');
+        this.$signalDelete = $$(this.$el).find('.signal__remove');
         this.$signalSwitcher = $$(this.$el).find('.signal__cell_type_switcher');
         this.$repeatSwitcher = $$(this.$el).find('.repeat__cell_type_switcher');
         this.$repeatWrap = $$(this.$el).find('.repeat');
         this.$repeatDay = $$(this.$el).find('.repeat__item');
 
-        this.$signalDescBlock.on('touchstart', Signal.onEdit.bind(this));
-        this.$signalDelete.on('touchstart', Signal.onRemove.bind(this));
-        this.$signalSwitcher.on('touchstart', Signal.onChangeState.bind(this));
-        this.$repeatSwitcher.on('touchstart', Signal.onRepeatState.bind(this));
+        this.$signalDescBlock.on('click', Signal.onEdit.bind(this));
+        this.$signalDelete.on('click', Signal.onRemove.bind(this));
+        this.$signalSwitcher.on('click', Signal.onChangeState.bind(this));
+        this.$repeatSwitcher.on('click', Signal.onRepeatState.bind(this));
 
-        this.$repeatDay.on('touchstart', Signal.onRepeatDay.bind(this));
-        this.$keyboardNum.on('touchstart', Signal.onKeyClick.bind(this));
+        this.$repeatDay.on('click', Signal.onRepeatDay.bind(this));
+        this.$keyboardNum.on('click', Signal.onKeyClick.bind(this));
 
         this.$signalChar.each(char => {
             this.currentInputTime.push(this.$signalChar[char].getAttribute('data-value'));
-            $$(this.$signalChar[char]).on('touchstart', Signal.onCharClick.bind(this));
+            $$(this.$signalChar[char]).on('click', Signal.onCharClick.bind(this));
         });
 
 
