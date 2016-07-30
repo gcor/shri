@@ -29,7 +29,3 @@ phonegap serve browser
 
 ###Скриншоты###
 ![Menu](./src/media/screen1.jpg) ![Alarm](./src/media/screen2.jpg)
-
-###Ньюансы###
-* Framework7
-* splashscreen требует установленный imagemagick
