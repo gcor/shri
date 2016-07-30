@@ -1,0 +1,20 @@
+{
+  "name": "alarm",
+  "description": "",
+  "main": "www/app.js",
+  "authors": [
+    "Anton Ahatov <anton@gcor.ru>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gcor/shri",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Framework7": "framework7#^1.4.2"
+  }
+}

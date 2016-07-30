@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     pngquant = require('imagemin-pngquant'),
     prefixer = require('gulp-autoprefixer'),
+    mainBowerFiles = require('main-bower-files'),
     browserSync = require('browser-sync').create(),
     splashiconGenerator = require("splashicon-generator"),
     reload = browserSync.reload;
@@ -42,7 +43,7 @@ var config = {
     }
 };
 
-gulp.task('gap', ['pug', 'stylus', 'js', 'splashicon', 'images', 'media', 'client-sync'], function() {
+gulp.task('gap', ['pug', 'stylus', 'js', 'bower', 'splashicon', 'images', 'media', 'client-sync'], function() {
     gulp.watch(config.from.pug, ['pug']);
     gulp.watch(config.from.stylus, ['stylus']);
     gulp.watch(config.from.js, ['js']);
@@ -163,4 +164,18 @@ gulp
                     done();
                 });
             });
-    });
+    })
+    .task('bower', function() {
+        return gulp.src(mainBowerFiles({
+                overrides: {
+                    Framework7: {
+                        main: [
+                            './dist/js/framework7.min.js',
+                            './dist/css/framework7.material.colors.min.css',
+                            './dist/css/framework7.material.min.css'
+                        ]
+                    }
+                }
+            }))
+            .pipe(gulp.dest('./www/bower/'))
+    })

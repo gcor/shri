@@ -1,4 +1,3 @@
-import Store from './store'
 import Signal from './signal'
 import QuickAdd from './quickAdd'
 

@@ -1,4 +1,5 @@
 import * as quickAddTemplate from '../templates/quickAdd'
+const $$ = Dom7;
 
 export default class QuickAdd {
 	constructor(alarm, data){
@@ -14,21 +15,9 @@ export default class QuickAdd {
 	}
 
 	initialize() {
-		this.$nowAdd = this.$el.querySelector('.quickadd__item_add-now');
-		this.$dateAdd = this.$el.querySelectorAll('.quickadd__item_add-date');
-		this.$timeAdd = this.$el.querySelectorAll('.quickadd__item_add-time');
-
-
-		// click add 300ms
-		this.$nowAdd.addEventListener('click', this.onAddNow.bind(this));
-
-		for (let $date of this.$dateAdd) {
-			$date.addEventListener('click', this.onAddDate.bind(this));
-		}
-
-		for (let $time of this.$timeAdd) {
-			$time.addEventListener('click', this.onAddTime.bind(this));
-		}
+		$$(this.$el).find('.quickadd__item_add-now').on('click', this.onAddNow.bind(this));
+		$$(this.$el).find('.quickadd__item_add-date').on('click', this.onAddDate.bind(this));
+		$$(this.$el).find('.quickadd__item_add-time').on('click', this.onAddTime.bind(this));
 	}
 
 	addSignal(hour, minute) {
@@ -40,6 +29,7 @@ export default class QuickAdd {
 	}
 
 	onAddNow() {
+		console.log(1234);
 		this.addSignal();
 	}
 

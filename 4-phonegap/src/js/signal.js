@@ -1,5 +1,6 @@
 import Store from './store';
 import * as signalTemplate from '../templates/signal'
+const $$ = Dom7;
 
 export default class Signal {
     constructor(store, data) {
@@ -31,34 +32,30 @@ export default class Signal {
     }
 
     initialize() {
-        this.$keyboardNum = this.$el.querySelectorAll('.keyboard__num');
-        this.$signalChar = this.$el.querySelectorAll('.signal__char');
-        this.$signalTime = this.$el.querySelector('.signal__time');
-        this.$signalDescription = this.$el.querySelector('.signal__description');
-        this.$signalDescBlock = this.$el.querySelector('.signal__cell_type_description');
-        this.$signalDelete = this.$el.querySelector('.signal__cell_type_delete');
-        this.$signalSwitcher = this.$el.querySelector('.signal__cell_type_switcher');
-        this.$repeatSwitcher = this.$el.querySelector('.repeat__cell_type_switcher');
-        this.$repeatWrap = this.$el.querySelector('.repeat');
-        this.$repeatDay = this.$el.querySelectorAll('.repeat__item');
+        this.$keyboardNum = $$(this.$el).find('.keyboard__num');
+        this.$signalChar = $$(this.$el).find('.signal__char');
+        this.$signalTime = $$(this.$el).find('.signal__time');
+        this.$signalDescription = $$(this.$el).find('.signal__description');
+        this.$signalDescBlock = $$(this.$el).find('.signal__cell_type_description');
+        this.$signalDelete = $$(this.$el).find('.signal__cell_type_delete');
+        this.$signalSwitcher = $$(this.$el).find('.signal__cell_type_switcher');
+        this.$repeatSwitcher = $$(this.$el).find('.repeat__cell_type_switcher');
+        this.$repeatWrap = $$(this.$el).find('.repeat');
+        this.$repeatDay = $$(this.$el).find('.repeat__item');
 
-        this.$signalDescBlock.addEventListener('touchstart', Signal.onEdit.bind(this));
-        this.$signalDelete.addEventListener('touchstart', Signal.onRemove.bind(this));
-        this.$signalSwitcher.addEventListener('touchstart', Signal.onChangeState.bind(this));
-        this.$repeatSwitcher.addEventListener('touchstart', Signal.onRepeatState.bind(this));
+        this.$signalDescBlock.on('touchstart', Signal.onEdit.bind(this));
+        this.$signalDelete.on('touchstart', Signal.onRemove.bind(this));
+        this.$signalSwitcher.on('touchstart', Signal.onChangeState.bind(this));
+        this.$repeatSwitcher.on('touchstart', Signal.onRepeatState.bind(this));
 
-        for (let day of this.$repeatDay) {
-            day.addEventListener('touchstart', Signal.onRepeatDay.bind(this));
-        }
+        this.$repeatDay.on('touchstart', Signal.onRepeatDay.bind(this));
+        this.$keyboardNum.on('touchstart', Signal.onKeyClick.bind(this));
 
-        for (let char of this.$signalChar) {
-            this.currentInputTime.push(char.getAttribute('data-value'));
-            char.addEventListener('touchstart', Signal.onCharClick.bind(this));
-        }
+        this.$signalChar.each(char => {
+            this.currentInputTime.push(this.$signalChar[char].getAttribute('data-value'));
+            $$(this.$signalChar[char]).on('touchstart', Signal.onCharClick.bind(this));
+        });
 
-        for (let key of this.$keyboardNum) {
-            key.addEventListener('touchstart', Signal.onKeyClick.bind(this));
-        }
 
         if (this.model.repeat.length) {
             this.activeRepeat()
@@ -114,35 +111,36 @@ export default class Signal {
 
     activeRepeat() {
         this.isRepeat = true;
-        this.$repeatWrap.classList.add('repeat_active');
+        $$(this.$repeatWrap)[0].classList.add('repeat_active');
     }
 
     disactiveRepeat() {
         this.isRepeat = false;
-        this.$repeatWrap.classList.remove('repeat_active');
+        $$(this.$repeatWrap)[0].classList.remove('repeat_active');
         this.$signalDescription.innerHTML = '';
         this.model.repeat = [];
 
-        for (let day of this.$repeatDay) {
-            day.classList.remove('on');
-        }
+
+        this.$repeatDay.each(day => {
+            this.$repeatDay[day].classList.remove('on');
+        });
     }
 
     disableKeys(minValue, maxValue) {
-        for (let $key of this.$keyboardNum) {
-            const keyValue = parseInt($key.getAttribute('data-value'));
+        this.$keyboardNum.each($key => {
+            const keyValue = parseInt(this.$keyboardNum[$key].getAttribute('data-value'));
             if (keyValue >= minValue && keyValue <= maxValue) {
-                $key.classList.add('disable');
+                this.$keyboardNum[$key].classList.add('disable');
             } else {
-                $key.classList.remove('disable');
+                this.$keyboardNum[$key].classList.remove('disable');
             }
-        }
+        });
     }
 
     activeChar(show = true) {
-        for (let $char of this.$signalChar) {
-            $char.classList.remove('on');
-        }
+        this.$signalChar.each($char => {
+            this.$signalChar[$char].classList.remove('on');
+        });
         if (show) this.currentChar.classList.add('on');
     }
 
@@ -218,13 +216,13 @@ export default class Signal {
 
         const repeat = [];
         const days = [];
-        for(let day of this.$repeatDay) {
-            const value = day.getAttribute('data-value');
-            if (day.classList.contains('on')) {
+        this.$repeatDay.each(day => {
+            const value = this.$repeatDay[day].getAttribute('data-value');
+            if (this.$repeatDay[day].classList.contains('on')) {
                 repeat.push(value);
-                days.push(day.innerHTML);
+                days.push(this.$repeatDay[day].innerHTML);
             }
-        }
+        });
         this.model.repeat = repeat;
 
         this.$signalDescription.innerHTML = days.join(', ');
@@ -236,10 +234,10 @@ export default class Signal {
             this.open();
         } else {
             let position = 0;
-            for (let $char of this.$signalChar) {
-                if ($char === e.target) this.editTime(position);
+            this.$signalChar.each($char => {
+                if (this.$signalChar[$char] === e.target) this.editTime(position);
                 position++;
-            }
+            });
 
             // disabled то что нельзя нажасть
             this.updateKeys();

@@ -2,14 +2,17 @@ doctype html
 html
 	head
 		meta(charset='utf-8')
+		title Alarm
 		meta(name='format-detection', content='telephone=no')
 		meta(name='msapplication-tap-highlight', content='no')
 		meta(name='viewport', content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width')
 		//- meta(http-equiv='Content-Security-Policy', content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *")
 		//- meta(http-equiv='Content-Security-Policy', content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *")
+		link(rel='stylesheet', type='text/css', href='bower/framework7.material.min.css')
+		link(rel='stylesheet', type='text/css', href='bower/framework7.material.colors.min.css')
 		link(rel='stylesheet', type='text/css', href='css/style.css')
-		title Alarm
 	body
 		block content
 		script(type='text/javascript', src='cordova.js')
+		script(type='text/javascript', src='bower/framework7.min.js')
 		script(type='text/javascript', src='js/app.js')

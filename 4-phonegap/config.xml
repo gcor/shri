@@ -7,8 +7,8 @@
     <!-- <preference name="android-build-tool" value="gradle" /> -->
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
-    <icon src="icon.png" />
-    <splash src="splash.png" />
+    <icon src="www/img/icon.png" />
+    <splash src="www/img/splash.png" />
     <plugin name="cordova-plugin-indexedDB" spec="https://github.com/Microsoft/cordova-plugin-indexedDB" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications" />
     <platform name="android">
