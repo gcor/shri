@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     pngquant = require('imagemin-pngquant'),
     prefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create(),
+    splashiconGenerator = require("splashicon-generator"),
     reload = browserSync.reload;
 
 var config = {
@@ -29,7 +30,8 @@ var config = {
         img: "./src/img/**/*",
         media: "./src/media/**/*",
         pug_common: "./src/pages/*.pug",
-        pug: ["./src/pages/**/*.pug", "./src/pug/**/*.pug"]
+        pug: ["./src/pages/**/*.pug", "./src/pug/**/*.pug"],
+        icon: '',
     },
     to: {
         css: "./www/css/",
@@ -40,7 +42,7 @@ var config = {
     }
 };
 
-gulp.task('w', ['pug', 'stylus', 'js', 'images', 'media', 'client-sync'], function() {
+gulp.task('gap', ['pug', 'stylus', 'js', 'splashicon', 'images', 'media', 'client-sync'], function() {
     gulp.watch(config.from.pug, ['pug']);
     gulp.watch(config.from.stylus, ['stylus']);
     gulp.watch(config.from.js, ['js']);
@@ -71,10 +73,10 @@ gulp
         gulp.src(config.from.stylus_common)
             .pipe(plumber())
             .pipe(sourcemaps.init())
-                .pipe(stylus())
-                .on('error', console.log)
-                .pipe(prefixer())
-                .pipe(csso())
+            .pipe(stylus())
+            .on('error', console.log)
+            .pipe(prefixer())
+            .pipe(csso())
             .pipe(sourcemaps.write())
             .pipe(gulp.dest(config.to.css))
             .pipe(reload({
@@ -101,7 +103,7 @@ gulp
                 stream: true
             }));
     })
-    .task('media', function () {
+    .task('media', function() {
         gulp.src(config.from.media)
             .pipe(gulp.dest(config.to.media))
             .pipe(reload({
@@ -117,4 +119,48 @@ gulp
             .pipe(reload({
                 stream: true
             }));
+    })
+    .task('splashicon', function(done) {
+        splashiconGenerator.generate()
+            .then(function() {
+                const options = {
+                    ICON_FILE: 'src/img/icon.png',
+                    SPLASH_FILE: 'src/img/splash.png',
+                    ICON_PLATFORMS: [{
+                        name: 'android',
+                        iconsPath: 'res/icons/android/',
+                        isAdded: true,
+                        icons: [
+                            { name: 'icon-36-ldpi.png', size: 36, density: 'ldpi' },
+                            { name: 'icon-48-mdpi.png', size: 48, density: 'mdpi' },
+                            { name: 'icon-72-hdpi.png', size: 72, density: 'hdpi' },
+                            { name: 'icon-96-xhdpi.png', size: 96, density: 'xhdpi' },
+                            { name: 'icon-144-xxhdpi.png', size: 144, density: 'xxhdpi' },
+                            { name: 'icon-192-xxxhdpi.png', size: 192, density: 'xxxhdpi' },
+                        ]
+                    }],
+                    SPLASH_PLATFORMS: [{
+                        name: 'android',
+                        isAdded: true,
+                        splashPath: 'res/screens/android/',
+                        splash: [
+                            { name: "screen-ldpi-portrait.png", width: 320, height: 426, density: "port-ldpi" },
+                            { name: "screen-ldpi-landscape.png", width: 426, height: 320, density: "land-ldpi" },
+                            { name: "screen-hdpi-portrait.png", width: 480, height: 640, density: "port-hdpi" },
+                            { name: "screen-hdpi-landscape.png", width: 640, height: 480, density: "land-hdpi" },
+                            { name: "screen-mdpi-portrait.png", width: 320, height: 470, density: "port-mdpi" },
+                            { name: "screen-mdpi-landscape.png", width: 470, height: 320, density: "land-mdpi" },
+                            { name: "screen-xhdpi-portrait.png", width: 720, height: 960, density: "port-xhdpi" },
+                            { name: "screen-xhdpi-landscape.png", width: 960, height: 720, density: "land-xhdpi" },
+                            { name: "screen-xxhdpi-portrait.png", width: 960, height: 1600, density: "port-xxhdpi" },
+                            { name: "screen-xxhdpi-landscape.png", width: 1600, height: 960, density: "land-xxhdpi" },
+                            { name: "screen-xxxhdpi-portrait.png", width: 1280, height: 1920, density: "port-xxhdpi" },
+                            { name: "screen-xxxhdpi-landscape.png", width: 1920, height: 1280, density: "land-xxhdpi" }
+                        ]
+                    }]
+                };
+                splashiconGenerator.generate(options).then(function() {
+                    done();
+                });
+            });
     });

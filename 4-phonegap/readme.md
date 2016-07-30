@@ -11,7 +11,7 @@
 
 ###Сборка###
 Исходники проекта лежат в src и компилируются с помощью gulp в папку www  
-Команда `gulp w` вначале собирает приложение:
+Команда `gulp gap` вначале собирает приложение:
 ```
 phonegap build browser
 phonegap serve browser
@@ -22,10 +22,7 @@ phonegap serve browser
 Для работы будильника используются два плагина для:
 * сохранения сигналов в базу через [cordova-plugin-indexedDB](https://github.com/Microsoft/cordova-plugin-indexedDB)
 * показ нотификаций через [cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
+* splashscreen [cordova-plugin-splashscreen](https://github.com/apache/cordova-plugin-splashscreen)
  
 ###Ньюансы###
-Я просмотрел каждый из фреймворков, установил и потестировал продукты ionic, попробовал стандарнтные проекты из `phonegap template list`, в том числе framework7. Но в итоге приложение решил сделать на чистом js, потому что дизайн предполагался свой, а подключать большой фреймворк ради тач событий я посчитал излишним.
-
-Основные трубности возникли с sdk, но в этом помог [build.phonegap.com](https://build.phonegap.com), который умеет собирать проекты в облаке, сообщая о возникших ошибках.
-
-Как indexedDB, так и плагин для нотификаций работали сразу, единственное не получилось сделать звуковой сигнал оповещения.
+* splashscreen требует установленный imagemagick
